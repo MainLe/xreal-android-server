@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="dev.xreal.server" android:versionCode="11" android:versionName="1.0.1-handoff">
+    <!-- Match vendor target semantics while isolating the observed display detection defect. -->
+    <uses-sdk android:minSdkVersion="28" android:targetSdkVersion="33" />
+    <uses-feature android:name="android.hardware.usb.host" android:required="true" />
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.HIGH_SAMPLING_RATE_SENSORS" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CONNECTED_DEVICE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <queries>
+        <package android:name="com.xreal.hellomr.demo" />
+        <package android:name="dev.xreal.server.posecheck" />
+        <package android:name="dev.xreal.server.features" />
+        <intent><action android:name="ai.nreal.nrsdk.network.type.server" /></intent>
+    </queries>
+    <application android:label="XREAL Server" android:theme="@android:style/Theme.Material.Light.NoActionBar"
+        android:icon="@android:drawable/ic_dialog_info" android:debuggable="true" android:allowBackup="false" android:extractNativeLibs="true">
+        <activity android:name="dev.xreal.server.MainActivity" android:exported="true" android:launchMode="singleTask">
+            <intent-filter><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent-filter>
+        </activity>
+        <receiver android:name="ai.nreal.glasses.control.permission" android:exported="false">
+            <intent-filter>
+                <action android:name="ai.nreal.glasses.control.Sdk.GRANT_USB_TTY"/>
+                <action android:name="ai.nreal.glasses.control.Sdk.GRANT_USB_AUDIO"/>
+                <action android:name="ai.nreal.glasses.control.Sdk.GRANT_USB_OV580"/>
+                <action android:name="ai.nreal.glasses.control.Sdk.GRANT_USB_RGB"/>
+                <action android:name="ai.nreal.glasses.control.Sdk.GRANT_USB_HID"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.xreal.nebula.controlmanager.control.receiver.UsbPermissionReceiver" android:exported="false"/>
+        <receiver android:name="com.xreal.glassesdisplayplugevent.receiver.UsbAttachDetachReceiver" android:exported="true">
+            <intent-filter><action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED"/><action android:name="android.hardware.usb.action.USB_DEVICE_DETACHED"/></intent-filter>
+        </receiver>
+        <service android:name="ai.nreal.framework.net.binder.Acceptor" android:exported="true" android:foregroundServiceType="connectedDevice">
+            <meta-data android:name="com.xreal.nrsdk.network.type" android:value="server"/>
+            <intent-filter android:priority="100"><action android:name="ai.nreal.nrsdk.network.type.server"/></intent-filter>
+        </service>
+        <uses-library android:name="libOpenCL.so" android:required="false"/>
+        <uses-library android:name="libcdsprpc.so" android:required="false"/>
+        <uses-native-library android:name="libnr_api.xreal.so" android:required="false"/>
+    </application>
+</manifest>
