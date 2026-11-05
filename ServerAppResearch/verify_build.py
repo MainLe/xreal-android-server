@@ -1,12 +1,15 @@
 """Verify the actual APK packaging and vendor-class/native-library preservation."""
-import hashlib, json, re, struct, zipfile
+import argparse, hashlib, json, re, struct, zipfile
 from collections import Counter
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parent
 (ROOT/'evidence').mkdir(exist_ok=True)
 SOURCE=ROOT.parent/'ControlGlasses-3.1.0.20251118115716-release.apk'
-RESULT=ROOT/'build/XrealMinimalServer-debug.apk'
+parser=argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--release',action='store_true')
+args=parser.parse_args()
+RESULT=ROOT/'build'/('XrealServer-v1.0.1-release.apk' if args.release else 'XrealMinimalServer-debug.apk')
 
 def classes(data):
     n,off=struct.unpack_from('<II',data,56)

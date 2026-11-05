@@ -1,6 +1,16 @@
 {
-  "file": "XrealServer-v1.0.1.apk",
+  "repository": "MainLe/xreal-android-server",
+  "tag": "v1.0.1",
+  "file": "XrealServer-v1.0.1-release.apk",
   "version": "1.0.1-handoff",
   "bytes": 121514650,
-  "sha256": "6ea681d8110bc75366488093cbe93797e198ede5d49044de8f4cd3bbdf8aa0a5"
+  "sha256": "c1be41a2fd0d8819d38c3fe9338015a48df291a03dedea8e27368e7ed476175a",
+  "build_type": "release",
+  "package": "dev.xreal.server",
+  "versionCode": 11,
+  "debuggable": false,
+  "certificateSha256": "86e2ea40f17f4d3775f5c5f670f310b7ded8d7f41895cd3d2534a1b54f166e55",
+  "signing": "existing local development certificate",
+  "signatureVerified": true,
+  "alignment16KiBVerified": true
 }

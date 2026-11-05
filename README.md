@@ -16,11 +16,15 @@ Android 原生 Server 工程，当前版本 **1.0.1-handoff**（versionCode 11�
 $env:XREAL_ANDROID_SDK = 'C:\Android\Sdk'
 $env:XREAL_JDK = 'C:\Program Files\Java\jdk-17'
 $env:XREAL_JADX_JAR = 'C:\tools\jadx\lib\jadx-1.5.6-all.jar'
-python ServerAppResearch/build_server.py
-python ServerAppResearch/verify_build.py
+python ServerAppResearch/build_server.py --release
+python ServerAppResearch/verify_build.py --release
 ```
 
-输出：`Build/Android/XrealServer-v1.0.1.apk`。未提供签名密钥时，脚本会在被 Git 忽略的构建目录生成本地开发证书；重新构建的签名不保证与已有安装相同。
+Release 输出：`Build/Android/XrealServer-v1.0.1-release.apk`。使用优化的 D8 Release 编译，生成非 debuggable 清单。省略 `--release` 可构建原来的调试版本。
+
+签名复用本地 `ServerAppResearch/build/development.p12`；没有该文件时生成本地开发证书。发布时使用原工作区已有证书，以保持安装更新兼容。签名密钥不进入仓库；首次在其他电脑构建的证书不保证与已有安装相同。
+
+成品见 [Release v1.0.1](https://github.com/MainLe/xreal-android-server/releases/tag/v1.0.1)，下载后可用同页 `SHA256SUMS` 校验。构建脚本限制各 Java 工具的堆和 GC 并发，降低编译/签名启动的内存需求。
 
 ## 实现与验证范围
 
