@@ -1,6 +1,9 @@
 
 # XREAL Android Server
 
+由于Xreal官方control glasses不兼容部分高版本Android设备，因此构建此第三方server端，让部分不兼容设备正常运行使用Xreal SDK开发的软件/游戏。
+注意：项目代码由AI生成。
+
 Android 原生 Server 工程，当前版本 **1.0.1-handoff**（versionCode 11，包名 `dev.xreal.server`）。管理 XREAL 运行库、眼镜显示模式和 XR 客户端启动时的 USB 控制权交接。
 
 本仓库只包含 Server 源码。Android 稳屏客户端独立位于 [xreal-android-stable-screen](https://github.com/MainLe/xreal-android-stable-screen)；Windows 3DoF 应用位于 [xreal-windows-3DOF](https://github.com/MainLe/xreal-windows-3DOF)。
